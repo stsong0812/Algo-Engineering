@@ -1,3 +1,0 @@
-schedule: 10:00,11:00
-working_period: 9:00,17:00
-30
