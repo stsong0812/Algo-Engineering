@@ -91,5 +91,5 @@ def main(file_path):
         set_count += 1
 
 if __name__ == "__main__":
-    file_path = 'schedules.txt' 
+    file_path = 'input.txt' 
     main(file_path)
