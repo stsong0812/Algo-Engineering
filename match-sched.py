@@ -57,16 +57,39 @@ def find_available_meeting_times(schedules, working_periods, duration):
     meeting_times = [interval for interval in common_available_times if interval[1] - interval[0] >= duration]
     return [[minutes_to_time(start), minutes_to_time(end)] for start, end in meeting_times]
 
-person1_schedule = [['7:00', '8:30'], ['12:00', '13:00'], ['16:00', '18:00']]
-person1_daily_act = ['9:00', '19:00']
-person2_schedule = [['9:00', '10:30'], ['12:20', '13:30'], ['14:00', '15:00'], ['16:00', '17:00']]
-person2_daily_act = ['9:00', '18:30']
+def read_schedules_working_periods_and_durations(file_path):
+    with open(file_path, 'r') as file:
+        data_sets = file.read().strip().split('\n\n')
+    
+    all_data = []
+    for data_set in data_sets:
+        lines = data_set.strip().split('\n')
+        duration_of_meeting = int(lines[0])
+        schedules = []
+        working_periods = []
+        for line in lines[1:]:
+            parts = line.strip().split(';')
+            working_periods.append(parts[0].split('-'))
+            schedules.append([part.split('-') for part in parts[1:]])
+        all_data.append((schedules, working_periods, duration_of_meeting))
+    
+    return all_data
 
-duration_of_meeting = 30
+def main(file_path):
+    all_data = read_schedules_working_periods_and_durations(file_path)
+    
+    set_count = 1
+    for schedules, working_periods, duration_of_meeting in all_data:
+        print(f"Data Set {set_count}: Meeting Duration {duration_of_meeting} minutes")
+        available_meeting_times = find_available_meeting_times(schedules, working_periods, duration_of_meeting)
+        if available_meeting_times:
+            for time_range in available_meeting_times:
+                print(f"Available: {time_range[0]} to {time_range[1]}")
+        else:
+            print("No available meeting times.")
+        print("-" * 40)
+        set_count += 1
 
-schedules = [person1_schedule, person2_schedule]
-working_periods = [person1_daily_act, person2_daily_act]
-
-available_meeting_times = find_available_meeting_times(schedules, working_periods, duration_of_meeting)
-
-print(available_meeting_times)
+if __name__ == "__main__":
+    file_path = 'schedules.txt' 
+    main(file_path)
