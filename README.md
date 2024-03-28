@@ -8,7 +8,7 @@ To run the program, create an input.txt file that contains the inputs. The forma
 7:00-8:30;12:00-13:00;16:00-18:00 (person 1 schedule)
 9:00-10:30;12:20-13:30;14:00-15:00;16:00-17:00 (person 2 schedule)
 
-Adding more than one set of input schedules requires a new line separating each set of inputs. Once you have a fully populated input.txt file, simply open match-sched.py and run the code. Below is an example of two different separated data sets:
+Adding more than one set of input schedules requires a new line separating each set of inputs. Once you have a fully populated input.txt file, simply open match-sched.py and run the code. The output will be written to an output.txt file. Below is an example of two different separated data sets:
 
 30 (duration of meeting)
 7:00-8:30;12:00-13:00;16:00-18:00 (person 1 schedule)
