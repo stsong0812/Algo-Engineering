@@ -78,17 +78,18 @@ def read_schedules_working_periods_and_durations(file_path):
 def main(file_path):
     all_data = read_schedules_working_periods_and_durations(file_path)
     
-    set_count = 1
-    for schedules, working_periods, duration_of_meeting in all_data:
-        print(f"Data Set {set_count}: Meeting Duration {duration_of_meeting} minutes")
-        available_meeting_times = find_available_meeting_times(schedules, working_periods, duration_of_meeting)
-        if available_meeting_times:
-            for time_range in available_meeting_times:
-                print(f"Available: {time_range[0]} to {time_range[1]}")
-        else:
-            print("No available meeting times.")
-        print("-" * 40)
-        set_count += 1
+    with open('output.txt', 'w') as output_file:
+        set_count = 1
+        for schedules, working_periods, duration_of_meeting in all_data:
+            output_file.write(f"Data Set {set_count}: Meeting Duration {duration_of_meeting} minutes\n")
+            available_meeting_times = find_available_meeting_times(schedules, working_periods, duration_of_meeting)
+            if available_meeting_times:
+                for time_range in available_meeting_times:
+                    output_file.write(f"Available: {time_range[0]} to {time_range[1]}\n")
+            else:
+                output_file.write("No available meeting times.\n")
+            output_file.write("-" * 40 + "\n")
+            set_count += 1
 
 if __name__ == "__main__":
     file_path = 'input.txt' 
